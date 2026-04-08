@@ -248,8 +248,8 @@
 
       .step {
           position: relative;
-          width: 1920px;
-          height: 1080px;
+          width: {{ width }}px;
+          height: {{ height }}px;
           padding: 0px;
       }
       /*
@@ -379,7 +379,7 @@
     slide, but here we just set a common duration for all slides.
 -->
 
-<div id="impress" data-transition-duration="0" data-perspective="0">
+<div id="impress" data-transition-duration="0" data-perspective="0" data-width="{{ width }}" data-height="{{ height }}">
     {% for page_no in page_iter %}
     <div class="step slide">
       {# insert svg image #}

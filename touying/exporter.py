@@ -17,7 +17,7 @@ FILE_PATH = os.path.dirname(os.path.realpath(__file__))
 
 
 def to_html(
-    input, root=None, font_paths=[], output=None, start_page=1, count=None, silent=False, sys_inputs={}
+    input, root=None, font_paths=[], output=None, start_page=1, count=None, size=(1920, 1080), silent=False, sys_inputs={}
 ):
     if not silent:
         print(f"Compiling typst source file {input}...")
@@ -66,7 +66,12 @@ def to_html(
     result = (
         jinja2.Environment(loader=jinja2.FileSystemLoader(FILE_PATH))
         .get_template("template.html.j2")
-        .render(page_iter=page_iter, images=images, idx2note=idx2note, pdfpc=pdfpc)
+        .render(page_iter=page_iter,
+                images=images,
+                idx2note=idx2note,
+                pdfpc=pdfpc,
+                width=size[0],
+                height=size[1])
     )
 
     # save to .html file

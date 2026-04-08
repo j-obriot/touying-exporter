@@ -37,6 +37,12 @@ def main():
         "--silent", type=bool, default=False, help="Run silently"
     )
     parser_compile.add_argument(
+        "--width", type=int, default=-1, help="Expected width of the presentation for HTML forma (in px), increasing it can reduce browser-induced blur"
+    )
+    parser_compile.add_argument(
+        "--height", type=int, default=-1, help="Expected height of the presentation for HTML forma (in px), increasing it can reduce browser-induced blur"
+    )
+    parser_compile.add_argument(
         "--format",
         choices=["html", "pptx", "pdf", "pdfpc"],
         default="html",
@@ -59,6 +65,16 @@ def main():
             if not isinstance(value, str):
                 raise ValueError(f"Error in sys-inputs: Value for '{key}' must be a string, got {type(value).__name__}")
 
+    width = args.width
+    height = args.height
+    if width < 0 and height < 0:
+        width = 1920
+        height = 1080
+    elif width < 0:
+        width = height * 16 // 9
+    elif height < 0:
+        height = width * 9 // 16
+
     if args.command == "compile":
         if args.format == "html":
             exporter.to_html(
@@ -68,6 +84,7 @@ def main():
                 output=args.output,
                 start_page=args.start_page,
                 count=args.count,
+                size=(width, height),
                 silent=args.silent,
                 sys_inputs=sys_inputs_dict,
             )
