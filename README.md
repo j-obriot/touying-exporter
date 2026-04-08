@@ -7,6 +7,8 @@ Export presentation slides in various formats for Touying.
 
 We generate SVG image files and package them with impress.js into an HTML file. This way, you can open and present it using a browser, and it supports GIF animations and speaker notes.
 
+If the result is slightly blurry on your screen, you can set the `--width` and/or `--height` (if any one is missing, defaults to 16/9 ratio) to change the browser render resolution. This is on the browser side, the content remains unchanged.
+
 ![image](https://github.com/touying-typ/touying-exporter/assets/34951714/207ddffc-87c8-4976-9bf4-4c6c5e2573ea)
 
 ![image](https://github.com/touying-typ/touying-exporter/assets/34951714/eac4976b-7d5d-40b6-8827-88c9a024b89a)
@@ -31,7 +33,7 @@ pip install touying
 ## CLI
 
 ```text
-usage: touying compile [-h] [--output OUTPUT] [--root ROOT] [--font-paths [FONT_PATHS ...]] [--start-page START_PAGE] [--count COUNT] [--ppi PPI] [--svg SVG] [--silent SILENT] [--format {html,pptx,pdf,pdfpc}] [--sys-inputs SYS_INPUTS] input
+usage: touying compile [-h] [--output OUTPUT] [--root ROOT] [--font-paths [FONT_PATHS ...]] [--start-page START_PAGE] [--count COUNT] [--ppi PPI] [--svg SVG] [--silent SILENT] [--width WIDTH] [--height HEIGHT] [--format {html,pptx,pdf,pdfpc}] [--sys-inputs SYS_INPUTS] input
 
 positional arguments:
   input                 Input file
@@ -48,6 +50,8 @@ options:
   --ppi PPI             Pixels per inch for PPTX format
   --svg SVG             Use svg in PPTX format
   --silent SILENT       Run silently
+  --width WIDTH         Expected width of the presentation for HTML forma (in px), increasing it can reduce browser-induced blur
+  --height HEIGHT       Expected height of the presentation for HTML forma (in px), increasing it can reduce browser-induced blur
   --format {html,pptx,pdf,pdfpc}
                         Output format
   --sys-inputs SYS_INPUTS
